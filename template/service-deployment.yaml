@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-c-service-deployment
+  labels:
+    app: my-c-service
+spec:
+  replicas: 3  # Initial number of replicas
+  selector:
+    matchLabels:
+      app: my-c-service
+  template:
+    metadata:
+      labels:
+        app: my-c-service
+    spec:
+      containers:
+      - name: my-c-service-container
+        image: my-c-service:latest  # The Docker image of the C service
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
